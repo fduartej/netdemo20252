@@ -11,9 +11,12 @@
             <button type="submit">Submit</button>
         </form>
         <form asp-action="RegistrarCliente" asp-controller="Home" method="post">
-            <input type="text" name="nombre" placeholder="Enter your name"/>
-            <input type="text" name="apellido" placeholder="Enter your last name"/>
-            <input type="email" name="email" placeholder="Enter your email"/>
+            <input type="text" name="Nombre" placeholder="Enter your name"/>
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+            <input type="text" name="Apellido" placeholder="Enter your last name"/>
+            <span asp-validation-for="Apellido" class="text-danger"></span>
+            <input type="email" name="Email" placeholder="Enter your email"/>
+            <span asp-validation-for="Email" class="text-danger"></span>
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -21,3 +24,7 @@
     <p>@ViewData["mensaje2"]</p>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
