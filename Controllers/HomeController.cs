@@ -33,7 +33,7 @@ public class HomeController : Controller
     {
         if(ModelState.IsValid)
         {
-            ViewData["mensaje2"] = "Hola como estas bienvenido " +cliente.Nombre + " " + cliente.Apellido;
+            ViewData["mensaje2"] = "Hola como estas bienvenido como has estado " +cliente.Nombre + " " + cliente.Apellido;
         }
         return View("Index");
     }
