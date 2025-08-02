@@ -15,7 +15,15 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        return View(NewCliente());
+    }
+
+    private static Cliente NewCliente()
+    {
+        List<Curso> cursos = new List<Curso>();
+        Cliente cliente = new Cliente();
+        cliente.Cursos = cursos;
+        return cliente;
     }
 
     public IActionResult Privacy()
@@ -26,16 +34,31 @@ public class HomeController : Controller
     public IActionResult Registrar(String nombre)
     {
         ViewData["mensaje1"] = "Hola como estas bienvenido " +nombre;
-        return View("Index");
+        return View("Index", NewCliente());
     }
 
     public IActionResult RegistrarCliente(Cliente cliente)
     {
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            ViewData["mensaje2"] = "Hola como estas bienvenido como has estado " +cliente.Nombre + " " + cliente.Apellido;
+            ViewData["mensaje2"] = "Hola como estas bienvenido como has estado " + cliente.Nombre + " " + cliente.Apellido;
+            List<Curso> cursos = new List<Curso>();
+            Curso curso = new Curso();
+            curso.Nombre = "Curso de Programación1";
+            curso.Descripcion = "Aprende los conceptos básicos de la programación 1.";
+            curso.Duracion = 5;
+            cursos.Add(curso);
+
+            curso = new Curso();
+            curso.Nombre = "Curso de Programación2";
+            curso.Descripcion = "Aprende los conceptos básicos de la programación 2.";
+            curso.Duracion = 6;
+            cursos.Add(curso);
+
+            cliente.Cursos = cursos;
         }
-        return View("Index");
+
+        return View("Index", cliente);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

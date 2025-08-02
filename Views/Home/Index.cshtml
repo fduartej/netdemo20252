@@ -1,6 +1,10 @@
 ﻿@model netdemo.Models.Cliente
+@using System.Collections.Generic;
+
 @{
     ViewData["Title"] = "Home Page";
+    IEnumerable<netdemo.Models.Curso> listCursos = new List<Curso>();
+    listCursos = @Model.Cursos;
 }
 
 <div class="text-center">
@@ -19,6 +23,13 @@
             <span asp-validation-for="Email" class="text-danger"></span>
             <button type="submit">Submit</button>
         </form>
+        @foreach(Curso cur in listCursos){
+            <div>
+                <h3>@cur.Nombre</h3>
+                <p>@cur.Descripcion</p>
+            </div>
+        }
+        
     </div>
     <p>@ViewData["mensaje1"]</p>
     <p>@ViewData["mensaje2"]</p>

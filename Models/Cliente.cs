@@ -11,5 +11,8 @@ public class Cliente
     [Required(ErrorMessage = "El apellido es obligatorio.")]
     public string? Apellido { get; set; }
     [EmailAddress(ErrorMessage = "El correo electrónico no es válido.")]
+
+
     public string? Email { get; set; }
+    public List<Curso>? Cursos { get; set; }
 }
