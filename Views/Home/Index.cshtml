@@ -1,0 +1,23 @@
+﻿@model netdemo.Models.Cliente
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome Alumnos de Progra I hot reload</h1>
+    <div>
+        <form asp-action="Registrar" asp-controller="Home" method="post">  
+            <input type="text"  name="nombre" placeholder="Enter your name" />
+            <button type="submit">Submit</button>
+        </form>
+        <form asp-action="RegistrarCliente" asp-controller="Home" method="post">
+            <input type="text" name="nombre" placeholder="Enter your name"/>
+            <input type="text" name="apellido" placeholder="Enter your last name"/>
+            <input type="email" name="email" placeholder="Enter your email"/>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <p>@ViewData["mensaje1"]</p>
+    <p>@ViewData["mensaje2"]</p>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
