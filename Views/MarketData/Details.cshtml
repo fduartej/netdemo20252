@@ -1,0 +1,81 @@
+@model netdemo20252.Models.Instrument
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title mb-0">
+                        <i class="fas fa-chart-line me-2"></i>Detalles del Instrumento
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <h4 class="mb-3">
+                        <i class="fas fa-info-circle me-2"></i>Información General
+                    </h4>
+                    <dl class="row">
+                        <dt class="col-sm-3">Ticker</dt>
+                        <dd class="col-sm-9">@Model.Ticker</dd>
+
+                        <dt class="col-sm-3">Nombre</dt>
+                        <dd class="col-sm-9">@Model.Nombre</dd>
+
+                        <dt class="col-sm-3">Sector</dt>
+                        <dd class="col-sm-9">@Model.Sector</dd>
+
+                        <dt class="col-sm-3">Moneda</dt>
+                        <dd class="col-sm-9">@Model.Moneda</dd>
+
+                        <dt class="col-sm-3">Precio Actual</dt>
+                        <dd class="col-sm-9">@Model.PrecioActual.ToString("C")</dd>
+
+                        <dt class="col-sm-3">Capitalización (USD)</dt>
+                        <dd class="col-sm-9">@Model.CapitalizacionUSD.ToString("N0")</dd>
+                    </dl>
+                </div>
+
+                 <!-- 📈 Gráfico TradingView -->
+                <div class="card mt-4">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-chart-area me-2"></i>Gráfico
+                        </h4>
+                    </div>
+                    <div class="card-body" style="height: 600px;">
+                        <div id="tv-advanced-chart" style="height:100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script TradingView -->
+<script>
+(function(){
+    function initTV(){
+        new TradingView.widget({
+            container_id: "tv-advanced-chart",
+            autosize: true,
+            symbol: "NASDAQ:@Model.Ticker", // 📌 Usamos el ticker del modelo
+            interval: "D",
+            timezone: "America/Lima",
+            theme: "light",
+            style: "1",
+            locale: "es",
+            withdateranges: true,
+            details: true,
+            calendar: true,
+            allow_symbol_change: true
+        });
+    }
+    if(window.TradingView){
+        initTV();
+    } else {
+        var s = document.createElement('script');
+        s.src = "https://s3.tradingview.com/tv.js";
+        s.onload = initTV;
+        document.head.appendChild(s);
+    }
+})();
+</script>
