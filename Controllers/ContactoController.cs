@@ -1,27 +1,38 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using netdemo.Models;
+@model netdemo.Models.Contacto
 
-namespace netdemo.Controllers
-{
-    public class ContactoController : Controller
-    {
-        public IActionResult Index()
+<h1>Contacto</h1>
+
+<form asp-action="Enviar" method="post">
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre</label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Mensaje" class="form-label"></label>
+        <textarea asp-for="Mensaje" class="form-control"></textarea>
+        <span asp-validation-for="Mensaje" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+
+    <div>
+        @if (ViewBag.Mensaje != null)
         {
-            return View();
+            <div class="alert alert-success mt-3">
+                @ViewBag.Mensaje
+            </div>
         }
+    </div>
+</form>
 
-        public IActionResult Enviar(Contacto contacto)
-        {
-            if (ModelState.IsValid)
-            {
-                // Aquí puedes manejar el envío del formulario, como guardar en una base de datos o enviar un correo electrónico.
-                ViewData["Mensaje"] = "Contacto enviado correctamente.";
-                return View("Index");
-            }
-
-            // Si el modelo no es válido, se regresa a la vista con los errores.
-            return View("Index", contacto);
-        }
-    }
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
