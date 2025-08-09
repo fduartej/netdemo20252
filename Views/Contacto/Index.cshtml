@@ -1,0 +1,35 @@
+@model netdemo.Models.Contacto;
+
+
+<h1>Contacto</h1>
+
+<form asp-action="Enviar" method="post">
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre</label>
+        <input asp-for="Nombre" class="form-control"/>
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control"/>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Mensaje" class="form-label"></label>
+        <input asp-for="Mensaje" class="form-control"/>
+        <span asp-validation-for="Mensaje" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    <div>
+        if (ViewBag.Mensaje != null)
+        {
+            <div class="alert alert-success mt-3">
+                @ViewBag.Mensaje
+            </div>
+        }   
+    </div>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
