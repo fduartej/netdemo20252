@@ -16,11 +16,11 @@ namespace netdemo.Controllers
             if (ModelState.IsValid)
             {
                 // Aquí puedes manejar el envío del formulario, como guardar en una base de datos o enviar un correo electrónico.
-                ViewData["Mensaje"] = "Contacto enviado correctamente.";
+                ViewBag.Mensaje = "Formulario enviado correctamente.";
                 return View("Index");
             }
 
-            // Si el modelo no es válido, se regresa a la vista con los errores.
+            // Si el modelo no es válido, vuelve a mostrar el formulario con los errores.
             return View("Index", contacto);
         }
     }
