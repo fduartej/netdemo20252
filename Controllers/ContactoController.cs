@@ -2,25 +2,26 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using netdemo.Models;
 
-
-namespace netdemo.Controllers;
-
-public class ContactoController : Controller
+namespace netdemo.Controllers
 {
-    public IActionResult Index()
+    public class ContactoController : Controller
     {
-        return View();
-    }
-    public IActionResult Enviar(Contacto contacto)
-    {
-        if (ModelState.IsValid)
+        public IActionResult Index()
         {
-            // Aquí podrías guardar el contacto en una base de datos o enviar un correo electrónico
-            ViewData["Mensaje"] = "Contacto enviado correctamente.";
-            return View("Index");
+            return View();
         }
 
-        // Si el modelo no es válido, se regresa a la vista con los errores
-        return View("Index", contacto);
+        public IActionResult Enviar(Contacto contacto)
+        {
+            if (ModelState.IsValid)
+            {
+                // Aquí puedes manejar el envío del formulario, como guardar en una base de datos o enviar un correo electrónico.
+                ViewData["Mensaje"] = "Contacto enviado correctamente.";
+                return View("Index");
+            }
+
+            // Si el modelo no es válido, se regresa a la vista con los errores.
+            return View("Index", contacto);
+        }
     }
 }
