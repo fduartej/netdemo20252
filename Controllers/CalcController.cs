@@ -34,7 +34,7 @@ public class CalcController : Controller
             default:
                 return BadRequest("Operación no válida");
         }
-
-        return View("Index", result);
+        ViewData["result"] = result;
+        return View("Index");
     }
 }
