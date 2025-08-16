@@ -2,22 +2,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using netdemo20252.Models;
+using netdemo20252.Data;
 
 namespace netdemo20252.Controllers;
 
 public class MarketDataController : Controller
 {
     private readonly ILogger<MarketDataController> _logger;
+    private readonly ApplicationDbContext _context;
 
-    public MarketDataController(ILogger<MarketDataController> logger)
+    public MarketDataController(ILogger<MarketDataController> logger, ApplicationDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
         _logger.LogInformation("Fetching market data...");
-        var instruments = new List<Instrument>
+        /*var instruments = new List<Instrument>
         {
                 new Instrument { Ticker = "AAPL", Nombre = "Apple Inc.", Sector = "Technology", Moneda = "USD", PrecioActual = 229.35m, CapitalizacionUSD = 3005779833320m },
                 new Instrument { Ticker = "MSFT", Nombre = "Microsoft Corp.", Sector = "Technology", Moneda = "USD", PrecioActual = 522.04m, CapitalizacionUSD = 2790642591197m },
@@ -29,13 +32,15 @@ public class MarketDataController : Controller
                 new Instrument { Ticker = "NVDA", Nombre = "NVIDIA Corp.", Sector = "Technology", Moneda = "USD", PrecioActual = 925.18m, CapitalizacionUSD = 2300000000000m },
                 new Instrument { Ticker = "INTC", Nombre = "Intel Corp.", Sector = "Technology", Moneda = "USD", PrecioActual = 34.75m, CapitalizacionUSD = 146000000000m },
                 new Instrument { Ticker = "ADBE", Nombre = "Adobe Inc.", Sector = "Technology", Moneda = "USD", PrecioActual = 522.89m, CapitalizacionUSD = 236000000000m }
-        };
+        };*/
+        var instruments = _context.DSInstruments.ToList();
         return View(instruments);
     }
 
     public IActionResult Details(string id)
     {
         _logger.LogInformation($"Fetching details for instrument: {id}");
+        
         var instrument = new Instrument
         {
             Ticker = id,

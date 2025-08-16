@@ -1,9 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using netdemo20252.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+//se conecta a la base de datos
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(connectionString));
+
 var app = builder.Build();
+
+    
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
